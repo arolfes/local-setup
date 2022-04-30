@@ -1,0 +1,58 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: true
+  become: yes
+
+  roles:
+    - name: arolfes.graalvm
+      graalvm_java_version: '11'
+      graalvm_is_default_installation: false
+      graalvm_fact_group_name: 'graalvm_java11'
+
+    - name: arolfes.graalvm
+      graalvm_java_version: '17'
+
+    - name: gantsign.intellij
+
+    - name: arolfes.camundamodeler
+      plugins:
+      - name: token-simulation
+        url: https://github.com/bpmn-io/bpmn-js-token-simulation-plugin/archive/refs/heads/master.zip
+      - name: autosave
+        url: https://github.com/pinussilvestrus/camunda-modeler-autosave-plugin/archive/refs/tags/v0.2.0.tar.gz
+      - name: camunda-modeler-plugin-resize-tasks 
+        url: https://github.com/philippfromme/camunda-modeler-plugin-resize-tasks/archive/refs/heads/master.zip
+    
+    - name: gantsign.visual-studio-code
+
+    - name: gantsign.intellij_jdks
+      users:
+        - username: 'arl'
+          intellij_jdks:
+            - name: '11'
+              home: '/opt/graalvm/graalvm-21.3.0-java11' # man kan hier nicht auf ansible_facts variablen zugreifen, deswegen der pfad ausgeschrieben
+            - name: '17'
+              home: '/opt/graalvm/graalvm-21.3.0-java17' # man kan hier nicht auf ansible_facts variablen zugreifen, deswegen der pfad ausgeschrieben
+          intellij_default_jdk: '17' # setzen des default jdk fuer intellij
+
+    - name: gantsign.visual-studio-code-extensions
+      users:
+        - username: 'arl'
+          visual_studio_code_extensions:
+            - donjayamanne.git-extension-pack
+            - johnpapa.angular-essentials
+            - ms-azuretools.vscode-docker
+
+    - name: geerlingguy.nodejs
+      nodejs_version: '14.x'
+      nodejs_install_npm_user: "arl"
+      nodejs_npm_global_packages:
+        - name: '@angular/cli'
+        - name: 'nx'
+        - name: '@nrwl/angular'
+        - name: 'jest'
+        - name: '@nrwl/jest'
+        - name: 'eslint'
+        - name: '@nrwl/eslint-plugin-nx'
+

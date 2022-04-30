@@ -1,0 +1,9 @@
+---
+- src: gantsign.intellij_jdks
+- src: gantsign.visual-studio-code
+- src: gantsign.visual-studio-code-extensions
+- src: geerlingguy.nodejs
+- src: arolfes.camundamodeler
+- src: gantsign.intellij
+- src: arolfes.graalvm
+
